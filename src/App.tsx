@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useRef } from "react";
+import "./App.css";
+import { game } from "./game";
+
+const nft =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRdBondAUvWLbdrMiGCoEz6dElRmeLWh0enQ&usqp=CAU";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const stageContainer = useRef<null | HTMLDivElement>(null);
+  useEffect(() => {
+    const app = game();
+    // @ts-ignore
+    stageContainer?.current && stageContainer.current.appendChild(app.view);
+  }, []);
+  return <div className="stageContainer" ref={stageContainer}></div>;
 }
 
 export default App;
